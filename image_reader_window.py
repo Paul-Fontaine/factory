@@ -1,7 +1,5 @@
-import sys
-
 from image_reader_factory import ImageReaderFactory
-from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QTextEdit, QHBoxLayout, QVBoxLayout, QApplication
+from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QTextEdit, QHBoxLayout, QVBoxLayout
 
 
 class ImageReaderWindow(QWidget):
@@ -49,12 +47,3 @@ class ImageReaderWindow(QWidget):
         self.__text_edit.setTextColor('black')
         for line in data:
             self.__text_edit.append(line)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-
-    window = ImageReaderWindow()
-    window.show()
-
-    sys.exit(app.exec())
