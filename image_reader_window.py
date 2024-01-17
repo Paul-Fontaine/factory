@@ -30,8 +30,8 @@ class ImageReaderWindow(QWidget):
         path: str = self.__line_edit.text()
         image_reader = ImageReaderFactory.create_image_reader(path)
         data = image_reader.read_file()
+        self.__text_edit.clear()
         for line in data:
-            print(line)
             self.__text_edit.append(line)
 
 
