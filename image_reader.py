@@ -15,6 +15,8 @@ class ImageReader(ABC):
         self._qfile = QFile(self._path)
         if self._qfile.open(QFile.ReadOnly):
             self._text_stream = QTextStream(self._qfile)
+        else:
+            raise FileNotFoundError
 
     @abstractmethod
     def read_file(self) -> List[str]:
