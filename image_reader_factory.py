@@ -5,8 +5,10 @@ from format2_image_reader import Format2ImageReader
 
 class ImageReaderFactory:
     @staticmethod
-    def create_image_reader(path: str) -> ImageReader:
+    def create_image_reader(path: str) -> ImageReader | None:
         if path.endswith('.fm1'):
             return Format1ImageReader(path)
         elif path.endswith('.fm2'):
             return Format2ImageReader(path)
+        else:
+            return None
