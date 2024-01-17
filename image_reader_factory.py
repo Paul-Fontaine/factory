@@ -11,4 +11,4 @@ class ImageReaderFactory:
         elif path.endswith('.fm2'):
             return Format2ImageReader(path)
         else:
-            return None
+            raise ValueError

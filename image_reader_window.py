@@ -8,29 +8,45 @@ class ImageReaderWindow(QWidget):
     def __init__(self):
         QWidget.__init__(self)
         self.setWindowTitle('Image Reader')
-        self.__vlayout = QVBoxLayout(self)
+        self.setMinimumSize(300, 300)
+
+        vlayout = QVBoxLayout(self)
 
         self.__line_edit: QLineEdit = QLineEdit(self)
+        self.__line_edit.setText('Data/Image1.fm1')
         self.__button_load: QPushButton = QPushButton('load', self)
         self.__button_load.clicked.connect(self.__load)
 
-        self.__hlayout = QHBoxLayout(self)
-        self.__hlayout.addWidget(self.__line_edit)
-        self.__hlayout.addWidget(self.__button_load)
+        hlayout = QHBoxLayout(self)
+        hlayout.addWidget(self.__line_edit)
+        hlayout.addWidget(self.__button_load)
 
         self.__text_edit: QTextEdit = QTextEdit(self)
         self.__text_edit.setReadOnly(True)
         self.__text_edit.setFontFamily('Courier New')
         self.__text_edit.setLineWrapMode(QTextEdit.NoWrap)
 
-        self.__vlayout.addLayout(self.__hlayout)
-        self.__vlayout.addWidget(self.__text_edit)
+        vlayout.addLayout(hlayout)
+        vlayout.addWidget(self.__text_edit)
 
     def __load(self):
         path: str = self.__line_edit.text()
-        image_reader = ImageReaderFactory.create_image_reader(path)
+        try:
+            image_reader = ImageReaderFactory.create_image_reader(path)
+        except FileNotFoundError:
+            self.__text_edit.clear()
+            self.__text_edit.setTextColor('red')
+            self.__text_edit.append("file not found")
+            return
+        except ValueError:
+            self.__text_edit.clear()
+            self.__text_edit.setTextColor('red')
+            self.__text_edit.append("unknown format")
+            return
+
         data = image_reader.read_file()
         self.__text_edit.clear()
+        self.__text_edit.setTextColor('black')
         for line in data:
             self.__text_edit.append(line)
 
