@@ -20,6 +20,8 @@ class ImageReaderWindow(QWidget):
 
         self.__text_edit: QTextEdit = QTextEdit(self)
         self.__text_edit.setReadOnly(True)
+        self.__text_edit.setFontFamily('Courier New')
+        self.__text_edit.setLineWrapMode(QTextEdit.NoWrap)
 
         self.__vlayout.addLayout(self.__hlayout)
         self.__vlayout.addWidget(self.__text_edit)
